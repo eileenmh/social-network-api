@@ -45,14 +45,26 @@ module.exports = {
         { $push: { thoughts: thought.id } },
         { new: true }
       );
-      res.json(thought);
+      res.status(200).json(thought);
     } catch (err) {
       res.status(500).json(err);
     }
   },
 
   // update a thought by it's `_id`
-  async updateThought(req, res) {},
+  async updateThought(req, res) {
+    try {
+      const result = await Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
+        req.body,
+        { new: true }
+      );
+      res.status(200).json(result);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  },
 
   // remove a thought by it's `_id`
   async deleteThought(req, res) {
