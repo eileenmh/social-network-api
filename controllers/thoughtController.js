@@ -93,5 +93,17 @@ module.exports = {
     }
   },
 
-  async deleteReaction(req, res) {},
+  async deleteReaction(req, res) {
+    try {
+      const thought = await Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
+        { $pull: { reactions: req.body } },
+        { new: true }
+      );
+      res.json(thought);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  },
 };
