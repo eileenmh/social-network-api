@@ -55,5 +55,15 @@ module.exports = {
   async updateThought(req, res) {},
 
   // remove a thought by it's `_id`
-  async deleteThought(req, res) {},
+  async deleteThought(req, res) {
+    try {
+      const result = await Thought.deleteOne({ _id: req.params.thoughtId });
+      res
+        .status(200)
+        .json({ message: "Success! The thought has been deleted." });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  },
 };

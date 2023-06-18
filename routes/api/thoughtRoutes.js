@@ -10,6 +10,10 @@ const {
 
 router.route("/").get(getThoughts).post(createThought);
 
-router.route("/:thoughtId/").get(getSingleThought);
+router
+  .route("/:thoughtId/")
+  .get(getSingleThought)
+  .post(updateThought)
+  .delete(deleteThought);
 
 module.exports = router;
