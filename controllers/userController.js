@@ -45,6 +45,19 @@ module.exports = {
     }
   },
 
+  async updateUser(req, res) {
+    try {
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        req.body,
+        { new: true }
+      );
+      res.json(user);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+
   // add friend to a user
   async addFriend(req, res) {
     try {
